@@ -74,6 +74,7 @@
             if (methods._knows_about(type)) {
                 return parseInt(_ls.getItem("_" + type + "_count"));
             }
+            return 0;
         },
         // Get documents matching locator.
         // Note: currently, the only supported types of locator are:
