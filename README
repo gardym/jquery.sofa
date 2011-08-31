@@ -1,0 +1,56 @@
+﻿
+jquery.sofa.js
+==============
+- Sofa is a JSON-friendly, lightweight, document-database-like, localStorage wrapper.
+
+What does that mean?
+- Sofa is based on localStorage, the HTML5 spec for storing data on the client-side of the world wide webs. LocalStorage is a pretty raw mechanism for maintaining key/value pairs inside your browser that persist between server conversations. Sometimes you need more structure than simple key/value pairs when you're working with more complicated data. Sofa is meant to help you with that.
+
+JSON-friendly?
+- Sofa saves JSON to localStorage and parses it back into objects on the way out. This makes it easy for you to store full blown JavaScript objects and use them again without having to do any awkward work or parsing.
+
+Document-database-like?
+- It sounds good?
+
+
+How to use it
+=============
+
+Begin by including it in your page:
+- <script type="text/javascript" language="javascript" src="jquery.sofa.js"></script>
+
+When you want to use, kick it off with:
+- $.storage("_init");
+
+You can store new objects by assigning them a locator (a retrieval scheme you define):
+- var new_shnoop_id = $.storage("create", "/shnoops", my_shnoop);
+
+retrieve objects by getting their full locator,
+- var shnoop_1 = $.storage("get", "/shnoops/1");
+
+all objects of a type with:
+- var all_the_shnoops = $.storage("get", "/shnoops");
+
+and update them by setting their full locator:
+- $.storage("set", "/shnoops/1", my_shnoop);
+
+and remove them when you like.
+- $.storage("remove", "/shnoops/1");
+
+You can also get the count of any types you've stored:
+- var shnoop_count = $.storage("count", "/shnoops");
+
+
+Limitations
+===========
+
+Currently only single level locators are supported (ie, /type/{index}).
+
+
+
+
+
+
+
+
+
