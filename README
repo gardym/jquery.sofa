@@ -20,37 +20,29 @@ Begin by including it in your page:
 - <script type="text/javascript" language="javascript" src="jquery.sofa.js"></script>
 
 When you want to use, kick it off with:
-- $.storage("_init");
+- $.sofa("_init");
 
 You can store new objects by assigning them a locator (a retrieval scheme you define):
-- var new_shnoop_id = $.storage("create", "/shnoops", my_shnoop);
+- var new_shnoop_id = $.sofa("create", "/shnoops", my_shnoop);
 
 retrieve objects by getting their full locator,
-- var shnoop_1 = $.storage("get", "/shnoops/1");
+- var shnoop_1 = $.sofa("get", "/shnoops/1");
 
 all objects of a type with:
-- var all_the_shnoops = $.storage("get", "/shnoops");
+- var all_the_shnoops = $.sofa("get", "/shnoops");
 
 and update them by setting their full locator:
-- $.storage("set", "/shnoops/1", my_shnoop);
+- $.sofa("set", "/shnoops/1", my_shnoop);
 
 and remove them when you like.
-- $.storage("remove", "/shnoops/1");
+- $.sofa("remove", "/shnoops/1");
 
 You can also get the count of any types you've stored:
-- var shnoop_count = $.storage("count", "/shnoops");
+- var shnoop_count = $.sofa("count", "/shnoops");
 
 
 Limitations
 ===========
 
 Currently only single level locators are supported (ie, /type/{index}).
-
-
-
-
-
-
-
-
 
