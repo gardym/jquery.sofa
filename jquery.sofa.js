@@ -17,7 +17,7 @@
             }
         },
 
-        
+
         // Helper functions for checking the types that sofa knows about
         // and for creating types on the fly.
         _knows_about: function (type) {
@@ -31,8 +31,8 @@
             _ls.setItem("_" + type + "_index", -1);
             _ls.setItem("_" + type + "_count", 0);
         },
-        
-        
+
+
         // Helper functions for parsing the locator which is a string of the form
         // /type/{index}. Only single level locators are currently supported.
         _get_type: function (locator) {
@@ -66,8 +66,23 @@
         },
 
 
+        // Debug/information functions
+        _sofa_size: function () {
+            var total_size = 0;
+            var types = $.parseJSON(_ls.getItem("_known_types"));
+            $(types).each(function (_i, type) {
+                var items = methods.get("/" + type);
+                var type_size = 0;
+                $(items).each(function (i, item) {
+                    type_size += $.toJSON(item).length;
+                });
+                total_size += type_size;
+            });
+            return total_size;
+        },
+
         // Public methods
-        
+
         // Get a count of the documents in the type "locator" (eg /items)
         count: function (locator) {
             var type = methods._get_type(locator);
@@ -131,7 +146,7 @@
             var type = methods._get_type(locator);
             if (methods._knows_about(type)) {
                 var index = methods._get_index(locator);
-                _ls.remove(type + "_" + index);
+                _ls.removeItem(type + "_" + index);
                 methods._decrement_type_count(type);
             }
         }
