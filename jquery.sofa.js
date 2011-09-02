@@ -66,6 +66,15 @@
         },
 
 
+        // Execute a function foreach item of the particular type.
+        _for_each: function (type, f) {
+            for (var i = 0; i <= methods._get_type_index(type); i++) {
+                var item = methods.get("/" + type + "/" + i);
+                if (item != null)
+                    f(i, item);
+            }
+        },
+
         // Debug/information functions
         _sofa_size: function () {
             var total_size = 0;
@@ -109,11 +118,7 @@
                 // Get a list of items
                 else if (locator.split("/").length == 2) {
                     var items = [];
-                    for (var i = 0; i <= methods._get_type_index(type); i++) {
-                        var item = methods.get("/" + type + "/" + i);
-                        if (item != null)
-                            items.push(item);
-                    }
+                    methods._for_each(type, function (index, item) { items.push(item); });
                     return items;
                 }
                 return null;
@@ -141,13 +146,19 @@
             return index;
         },
         // Remove the item specified by the locator (eg "/items/1")
-        // Note: "/items" is not currently supported for removal.
         remove: function (locator) {
             var type = methods._get_type(locator);
             if (methods._knows_about(type)) {
-                var index = methods._get_index(locator);
-                _ls.removeItem(type + "_" + index);
-                methods._decrement_type_count(type);
+                // Delete a single item
+                if (locator.split("/").length > 2) {
+                    var index = methods._get_index(locator);
+                    _ls.removeItem(type + "_" + index);
+                    methods._decrement_type_count(type);
+                }
+                // Delete all items of the specified type
+                else if (locator.split("/").length == 2) {
+                    methods._for_each(type, function(index, item) { methods.remove(locator + "/" + index); });
+                }
             }
         }
     };
